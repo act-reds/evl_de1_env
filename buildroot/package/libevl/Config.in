@@ -1,0 +1,7 @@
+config BR2_PACKAGE_LIBEVL
+	bool "libevl"
+	help
+	  This library implements the system call interface between applications
+	  running in user-space and the EVL core,
+
+	  https://evlproject.org/core/user-api/
