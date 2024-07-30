@@ -1,0 +1,57 @@
+ECC_SDRAM=0
+ECC_SDRAM_DBE=0
+ECC_SDRAM_SBE=0
+axibridge=ffd0501c
+axibridge_handoff=0x00000005
+baudrate=115200
+bootargs=console=ttyS0,115200 root=/dev/mmcblk0p3 rw rootwait
+bootcmd=run mmcload; run fpgaload; run bridge_enable_handoff; run mmcboot
+bootdelay=2
+bootimage=uImage
+bootimagesize=0x600000
+bridge_disable=mw $fpgaintf 0; mw $fpga2sdram 0; go $fpga2sdram_apply; mw $axibridge 0; mw $l3remap 0x1 
+bridge_enable_handoff=mw $fpgaintf ${fpgaintf_handoff}; mw $fpga2sdram ${fpga2sdram_handoff}; mw $axibridge ${axibridge_handoff}; mw $l3remap ${l3remap_handoff} 
+ethact=mii0
+ethaddr=12:34:56:78:90:12
+fdtaddr=0x00000100
+fdtimage=socfpga.dtb
+fdtimagesize=0x2000
+filesize=0x6aebd0
+fpdata=0x20000002126D5
+fpga=0
+fpga2sdram=ffc25080
+fpga2sdram_apply=3ff841c4
+fpga2sdram_handoff=0x000001ff
+fpgadata=0x2000000
+fpgadatasize=2126D5
+fpgaintf=ffd08028
+fpgaintf_handoff=0x00000000
+fpgaload=fatload mmc 0:1 0x2000000 soc_system.rbf; fpga load 0 0x2000000 0x6aebd0
+gatewayip=192.168.2.1
+hwaddr=12:34:56:78:90:12
+ipaddr=192.168.2.15
+l3remap=ff800000
+l3remap_handoff=0x00000011
+loadaddr=0x7fc0
+mmcboot=setenv bootargs console=ttyS0,115200 root=/dev/mmcblk0p3 rw rootwait coherent_pool=6M;bootm 0x7fc0 - 0x00000100
+mmcload=mmc rescan;fatload mmc 0:1 0x7fc0 uImage;fatload mmc 0:1 0x00000100 socfpga.dtb
+mmcloadcmd=fatload
+mmcloadpart=1
+mmcroot=/dev/mmcblk0p3
+netboot=dhcp uImage ; tftp 0x00000100 socfpga.dtb ; run ramboot
+netmask=255:255:255:0
+qspiboot=setenv bootargs console=ttyS0,57600 root=/dev/mtdblock1 rw rootfstype=jffs2;bootm 0x7fc0 - 0x00000100
+qspibootimageaddr=0xa0000
+qspifdtaddr=0x50000
+qspiload=sf probe 0;sf read 0x7fc0 0xa0000 0x600000;sf read 0x00000100 0x50000 0x2000;
+qspiloadcs=0
+qspiroot=/dev/mtdblock1
+qspirootfstype=jffs2
+ramboot=setenv bootargs console=ttyS0,57600;bootz 0x7fc0 - 0x00000100
+serverip=192.168.1.1
+setenv_ethaddr_eeprom=3ff9cef9
+stderr=serial
+stdin=serial
+stdout=serial
+verify=n
+
